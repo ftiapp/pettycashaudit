@@ -259,7 +259,7 @@ export default function PettyCashTable({ rows, lastUpdated }: Props) {
               <th className="px-3 py-2 text-center whitespace-nowrap border-l border-slate-200">เลขที่ใบเบิกล่วงหน้า</th>
               </tr>
             </thead>
-            <tbody className="text-[11px] text-slate-800 divide-y divide-slate-200">
+            <tbody className="text-sm text-slate-800 divide-y divide-slate-200">
               {filteredRows.map((row, index) => {
                 const isSelected = row.id === selectedRowId;
                 const baseColor =
