@@ -123,8 +123,8 @@ export default async function Home() {
   ]);
 
   return (
-    <div className="min-h-screen bg-white py-10 px-4">
-      <div className="mx-auto max-w-6xl space-y-6">
+    <div className="bg-white pt-4 pb-0 px-2 sm:px-4 lg:px-8">
+      <div className="mx-auto w-full max-w-6xl lg:max-w-[1400px] xl:max-w-none space-y-6">
         <PettyCashTable rows={rows} lastUpdated={lastUpdated} />
       </div>
     </div>

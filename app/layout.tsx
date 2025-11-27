@@ -109,9 +109,9 @@ export default function RootLayout({
             </div>
           </header>
 
-          <main className="flex-1">{children}</main>
+          <main>{children}</main>
 
-          <footer className="mt-auto border-t border-slate-200 bg-white py-4 text-[11px] text-indigo-900">
+          <footer className="mt-0 border-t border-slate-200 bg-white py-4 text-[11px] text-indigo-900">
             <div className="mx-auto flex w-full max-w-5xl items-center px-4">
               <div className="flex items-center">
                 <img

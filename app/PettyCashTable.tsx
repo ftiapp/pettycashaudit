@@ -240,7 +240,7 @@ export default function PettyCashTable({ rows, lastUpdated }: Props) {
       </div>
 
       <div className="overflow-x-auto">
-        <div className="max-h-[440px] overflow-y-auto">
+        <div className="max-h-[480px] lg:max-h-[70vh] overflow-y-auto">
           <table className="w-full text-left text-sm border border-slate-200 rounded-lg">
             <thead className="sticky top-0 z-10 bg-indigo-800 font-medium text-slate-50">
               <tr>
