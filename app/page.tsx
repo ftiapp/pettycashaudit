@@ -31,13 +31,15 @@ async function fetchSheetRows(): Promise<PettyCashRow[]> {
       return [];
     }
 
+    const rawKey = process.env.GOOGLE_SHEETS_PRIVATE_KEY || "";
+    const privateKey = rawKey.includes("\\n")
+      ? rawKey.replace(/\\n/g, "\n")
+      : rawKey;
+
     const auth = new google.auth.GoogleAuth({
       credentials: {
         client_email: process.env.GOOGLE_SHEETS_CLIENT_EMAIL,
-        private_key: process.env.GOOGLE_SHEETS_PRIVATE_KEY.replace(
-          /\\n/g,
-          "\n"
-        ),
+        private_key: privateKey,
       },
       scopes: ["https://www.googleapis.com/auth/spreadsheets.readonly"],
     });
@@ -93,10 +95,15 @@ async function fetchSheetLastUpdated(): Promise<string | undefined> {
       return undefined;
     }
 
+    const rawKey = process.env.GOOGLE_SHEETS_PRIVATE_KEY || "";
+    const privateKey = rawKey.includes("\\n")
+      ? rawKey.replace(/\\n/g, "\n")
+      : rawKey;
+
     const auth = new google.auth.GoogleAuth({
       credentials: {
         client_email: process.env.GOOGLE_SHEETS_CLIENT_EMAIL,
-        private_key: process.env.GOOGLE_SHEETS_PRIVATE_KEY.replace(/\\n/g, "\n"),
+        private_key: privateKey,
       },
       scopes: ["https://www.googleapis.com/auth/spreadsheets.readonly"],
     });
