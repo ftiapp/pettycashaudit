@@ -9,7 +9,7 @@ const prompt = Prompt({
 });
 
 export const metadata: Metadata = {
-  title: "PettyCashAudit",
+  title: "รายงานการโอนเงินสดย่อยประจำวัน",
   description: "Petty cash tracking and audit dashboard",
 };
 
