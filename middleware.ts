@@ -6,10 +6,7 @@ export function middleware(request: NextRequest) {
   const referer = request.headers.get("referer") || "";
   const { pathname } = request.nextUrl;
 
-  // ขณะพัฒนา (npm run dev) ให้ผ่านทุก request เพื่อสะดวกต่อการทดสอบ
-  if (process.env.NODE_ENV !== "production") {
-    return NextResponse.next();
-  }
+
 
   // อนุญาตให้ไฟล์ static บางอย่างผ่านไปได้โดยไม่ตรวจ referer
   if (
