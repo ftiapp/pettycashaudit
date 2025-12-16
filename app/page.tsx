@@ -30,10 +30,24 @@ async function fetchSheetRows(): Promise<PettyCashRow[]> {
       console.error("Missing Google Sheets environment variables");
       return [];
     }
+    const privateKeyRows = process.env.GOOGLE_SHEETS_PRIVATE_KEY
+      ? process.env.GOOGLE_SHEETS_PRIVATE_KEY.replace(/\\n/g, "\n")
+      : "";
+
+    console.log("[fetchSheetRows] KEY length:", privateKeyRows.length);
+    console.log(
+      "[fetchSheetRows] KEY start:",
+      privateKeyRows.slice(0, 40)
+    );
+    console.log(
+      "[fetchSheetRows] KEY end:",
+      privateKeyRows.slice(-40)
+    );
+
     const auth = new google.auth.GoogleAuth({
       credentials: {
         client_email: process.env.GOOGLE_SHEETS_CLIENT_EMAIL,
-        private_key: process.env.GOOGLE_SHEETS_PRIVATE_KEY.replace(/\\n/g, "\n"),
+        private_key: privateKeyRows,
       },
       scopes: ["https://www.googleapis.com/auth/spreadsheets.readonly"],
     });
