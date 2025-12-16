@@ -28,6 +28,12 @@ export function middleware(request: NextRequest) {
     <meta charSet="utf-8" />
     <title>การเข้าใช้งานไม่ถูกต้อง</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
       :root {
         color-scheme: light;
@@ -37,8 +43,8 @@ export function middleware(request: NextRequest) {
       }
       body {
         margin: 0;
-        padding: 0;
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        padding: 16px 12px;
+        font-family: "Prompt", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         background: radial-gradient(circle at top, #e0edff 0, #f9fafb 42%, #f3f4f6 100%);
         color: #111827;
         min-height: 100vh;
@@ -47,9 +53,10 @@ export function middleware(request: NextRequest) {
         justify-content: center;
       }
       .card {
+        width: 100%;
         max-width: 560px;
-        margin: 16px;
-        padding: 22px 30px 22px;
+        margin: 0 auto;
+        padding: 22px 24px 22px;
         border-radius: 18px;
         background: #ffffff;
         box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
@@ -104,12 +111,35 @@ export function middleware(request: NextRequest) {
       }
       .url-line {
         margin-top: 10px;
-        white-space: nowrap;
+        white-space: normal;
+        word-break: break-word;
       }
       .small {
         margin-top: 10px;
         font-size: 0.82rem;
         color: #6b7280;
+      }
+      @media (max-width: 480px) {
+        body {
+          padding: 12px 10px;
+        }
+        .card {
+          padding: 18px 18px 18px;
+          border-radius: 14px;
+          box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
+        }
+        .logo {
+          height: 32px;
+        }
+        h1 {
+          font-size: 1.15rem;
+        }
+        p {
+          font-size: 0.9rem;
+        }
+        .pill {
+          font-size: 0.75rem;
+        }
       }
     </style>
   </head>
