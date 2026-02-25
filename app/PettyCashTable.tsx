@@ -25,6 +25,7 @@ type Props = {
 };
 
 export default function PettyCashTable({ rows, lastUpdated }: Props) {
+  const [fontSizePercent, setFontSizePercent] = useState(120);
   const [receiverFilter, setReceiverFilter] = useState("");
   const [instituteFilter, setInstituteFilter] = useState("");
   const [detailFilter, setDetailFilter] = useState("");
@@ -210,7 +211,28 @@ export default function PettyCashTable({ rows, lastUpdated }: Props) {
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2 pt-1 justify-end">
+        <div className="flex flex-wrap items-center gap-2 pt-1 justify-between">
+          <div className="flex items-center gap-2 rounded-full border border-indigo-200 bg-white px-2 py-1 shadow-sm">
+            <span className="text-xs font-medium text-slate-600 pl-2">ขนาดอักษร:</span>
+            <button
+              onClick={() => setFontSizePercent(Math.max(80, fontSizePercent - 10))}
+              disabled={fontSizePercent <= 80}
+              className="flex h-6 w-6 items-center justify-center rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 disabled:opacity-50 transition-colors"
+            >
+              <span className="text-sm font-bold">-</span>
+            </button>
+            <span className="w-10 text-center text-xs font-semibold text-indigo-700">
+              {fontSizePercent}%
+            </span>
+            <button
+              onClick={() => setFontSizePercent(Math.min(150, fontSizePercent + 10))}
+              disabled={fontSizePercent >= 150}
+              className="flex h-6 w-6 items-center justify-center rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 disabled:opacity-50 transition-colors"
+            >
+              <span className="text-sm font-bold">+</span>
+            </button>
+          </div>
+
           <button
             type="button"
             className="inline-flex items-center justify-center gap-1.5 rounded-full border border-red-300 bg-red-50 px-4 py-1 text-sm font-semibold text-red-700 shadow-sm hover:bg-red-500 hover:text-white hover:border-red-600 hover:shadow-md transition-colors"
@@ -241,25 +263,28 @@ export default function PettyCashTable({ rows, lastUpdated }: Props) {
 
       <div className="overflow-x-auto">
         <div className="max-h-[480px] lg:max-h-[70vh] overflow-y-auto">
-          <table className="w-full text-left text-sm border border-slate-200 rounded-lg">
+          <table className="w-full text-left text-xs border border-slate-200 rounded-lg">
             <thead className="sticky top-0 z-10 bg-indigo-800 font-medium text-slate-50">
               <tr>
-              <th className="px-3 py-2 text-center whitespace-nowrap border-l border-slate-200">เดือนที่เบิก</th>
-              <th className="px-3 py-2 text-center whitespace-nowrap border-l border-slate-200">วันที่โอน</th>
-              <th className="px-3 py-2 text-center whitespace-nowrap border-l border-slate-200">เลขที่ใบสำคัญจ่ายเงินสดย่อย</th>
-              <th className="px-3 py-2 text-center whitespace-nowrap border-l border-slate-200">รายละเอียดการเบิก</th>
-              <th className="px-3 py-2 text-center whitespace-nowrap border-l border-slate-200">กลุ่มฯ/งาน</th>
-              <th className="px-3 py-2 text-center whitespace-nowrap border-l border-slate-200">วันที่</th>
-              <th className="px-3 py-2 text-center whitespace-nowrap border-l border-slate-200">ผู้รับเงิน</th>
-              <th className="px-3 py-2 text-center whitespace-nowrap border-l border-slate-200">จำนวนเงิน</th>
-              <th className="px-3 py-2 text-center whitespace-nowrap border-l border-slate-200">ฝ่าย/สถาบัน</th>
-              <th className="px-3 py-2 text-center whitespace-nowrap border-l border-slate-200">หมายเหตุ</th>
-              <th className="px-3 py-2 text-center whitespace-nowrap border-l border-slate-200">เบิกล่วงหน้า</th>
-              <th className="px-3 py-2 text-center whitespace-nowrap border-l border-slate-200">คงเหลือคืน</th>
-              <th className="px-3 py-2 text-center whitespace-nowrap border-l border-slate-200">เลขที่ใบเบิกล่วงหน้า</th>
+              <th className="px-1.5 py-1.5 text-center border-l border-slate-200 min-w-[70px]">เดือนที่เบิก</th>
+              <th className="px-1.5 py-1.5 text-center border-l border-slate-200 min-w-[70px]">วันที่โอน</th>
+              <th className="px-1.5 py-1.5 text-center border-l border-slate-200 w-24">เลขที่ใบสำคัญฯ</th>
+              <th className="px-1.5 py-1.5 text-left border-l border-slate-200 min-w-[120px]">รายละเอียดการเบิก</th>
+              <th className="px-1.5 py-1.5 text-left border-l border-slate-200 min-w-[100px]">กลุ่มฯ/งาน</th>
+              <th className="px-1.5 py-1.5 text-left border-l border-slate-200 min-w-[70px]">วันที่</th>
+              <th className="px-1.5 py-1.5 text-left border-l border-slate-200 min-w-[80px]">ผู้รับเงิน</th>
+              <th className="px-1.5 py-1.5 text-right whitespace-nowrap border-l border-slate-200">จำนวนเงิน</th>
+              <th className="px-1.5 py-1.5 text-center border-l border-slate-200 min-w-[80px]">ฝ่าย/สถาบัน</th>
+              <th className="px-1.5 py-1.5 text-center border-l border-slate-200 min-w-[100px]">หมายเหตุ</th>
+              <th className="px-1.5 py-1.5 text-center border-l border-slate-200 min-w-[70px]">เบิกล่วงหน้า</th>
+              <th className="px-1.5 py-1.5 text-center border-l border-slate-200 min-w-[70px]">คงเหลือคืน</th>
+              <th className="px-1.5 py-1.5 text-center border-l border-slate-200 min-w-[80px]">ใบเบิกล่วงหน้า</th>
               </tr>
             </thead>
-            <tbody className="text-sm text-slate-800 divide-y divide-slate-200">
+            <tbody 
+              className="text-slate-800 divide-y divide-slate-200 transition-all duration-200"
+              style={{ fontSize: `${(fontSizePercent / 100) * 0.75}rem` }}
+            >
               {filteredRows.map((row, index) => {
                 const isSelected = row.id === selectedRowId;
                 const baseColor =
@@ -275,28 +300,24 @@ export default function PettyCashTable({ rows, lastUpdated }: Props) {
                       isSelected ? "bg-amber-100" : baseColor
                     } hover:bg-amber-50 cursor-pointer transition-colors`}
                   >
-                <td className="px-3 py-2 text-center whitespace-nowrap border-l border-slate-200">{row.monthLabel}</td>
-                <td className="px-3 py-2 text-center whitespace-nowrap border-l border-slate-200">{row.transferDate}</td>
-                <td className="px-3 py-2 text-center whitespace-nowrap border-l border-slate-200">{row.docNo}</td>
-                <td className="px-3 py-2 text-center whitespace-nowrap border-l border-slate-200">{row.detail}</td>
-                <td className="px-3 py-2 text-center whitespace-nowrap border-l border-slate-200">{row.groupName}</td>
-                <td className="px-3 py-2 text-center whitespace-nowrap border-l border-slate-200">{row.date}</td>
-                <td className="px-3 py-2 text-center whitespace-nowrap border-l border-slate-200">{row.receiver}</td>
-                <td className="px-3 py-2 text-center whitespace-nowrap border-l border-slate-200 font-semibold text-slate-900">
+                <td className="px-1.5 py-1.5 text-center border-l border-slate-200">{row.monthLabel}</td>
+                <td className="px-1.5 py-1.5 text-center border-l border-slate-200">{row.transferDate}</td>
+                <td className="px-1.5 py-1.5 text-center border-l border-slate-200 text-[0.85em] leading-tight">{row.docNo}</td>
+                <td className="px-1.5 py-1.5 text-left border-l border-slate-200">{row.detail}</td>
+                <td className="px-1.5 py-1.5 text-left border-l border-slate-200">{row.groupName}</td>
+                <td className="px-1.5 py-1.5 text-left border-l border-slate-200">{row.date}</td>
+                <td className="px-1.5 py-1.5 text-left border-l border-slate-200">{row.receiver}</td>
+                <td className="px-1.5 py-1.5 text-right whitespace-nowrap border-l border-slate-200 font-semibold text-slate-900">
                   {row.amount.toLocaleString("th-TH", {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}
                 </td>
-                <td className="px-3 py-2 text-center whitespace-nowrap border-l border-slate-200">{row.institute}</td>
-                <td className="px-3 py-2 text-center whitespace-nowrap border-l border-slate-200">{row.note}</td>
-                <td className="px-3 py-2 text-center whitespace-nowrap border-l border-slate-200">
-                  {row.advance.toFixed(2)}
-                </td>
-                <td className="px-3 py-2 text-center whitespace-nowrap border-l border-slate-200">
-                  {row.refund.toFixed(2)}
-                </td>
-                <td className="px-3 py-2 text-center whitespace-nowrap border-l border-slate-200">{row.advNo}</td>
+                <td className="px-1.5 py-1.5 text-center border-l border-slate-200">{row.institute}</td>
+                <td className="px-1.5 py-1.5 text-center border-l border-slate-200">{row.note}</td>
+                <td className="px-1.5 py-1.5 text-center border-l border-slate-200">{row.advance.toFixed(2)}</td>
+                <td className="px-1.5 py-1.5 text-center border-l border-slate-200">{row.refund.toFixed(2)}</td>
+                <td className="px-1.5 py-1.5 text-center border-l border-slate-200 text-[0.85em] leading-tight">{row.advNo}</td>
               </tr>
             );
           })}

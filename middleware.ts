@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const ALLOWED_REFERER = "https://ftiorth.sharepoint.com/";
+const BYPASS_REFERER = process.env.BYPASS_REFERER === "true";
 
 export function middleware(request: NextRequest) {
   const referer = request.headers.get("referer") || "";
@@ -17,8 +18,8 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // อนุญาตเฉพาะเมื่อ referer มาจาก SharePoint ที่กำหนด
-  if (!referer.startsWith(ALLOWED_REFERER)) {
+  // อนุญาตเฉพาะเมื่อ referer มาจาก SharePoint ที่กำหนด (ยกเว้นเมื่อเปิดโหมด bypass สำหรับ dev)
+  if (!BYPASS_REFERER && !referer.startsWith(ALLOWED_REFERER)) {
     const html = `<!DOCTYPE html>
 <html lang="th">
   <head>
