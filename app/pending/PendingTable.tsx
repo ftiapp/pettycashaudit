@@ -98,6 +98,32 @@ export default function PendingTable({ rows }: Props) {
           </div>
         </div>
 
+        {/* แถบเตือนสีแดง */}
+        <div className="flex items-start gap-4 rounded-xl border-2 border-red-200 bg-red-50 px-6 py-5 text-red-700">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            className="mt-0.5 h-7 w-7 shrink-0"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 8v4" />
+            <path d="M12 16h.01" />
+          </svg>
+          <div className="text-base leading-relaxed">
+            <p className="font-bold text-lg">
+              สามารถตรวจสอบรายละเอียดเพิ่มเติมเกี่ยวกับเช็คสั่งจ่าย ได้ที่ฝ่ายบัญชีฯ คุณทิวิตถ์ฯ
+            </p>
+            <p className="text-red-600 mt-1">
+              กำหนดการจ่ายเช็คทุกวันศุกร์ สัปดาห์ที่ 2 และ 4 ของเดือน เวลา 13.00 - 17.00 น.
+            </p>
+          </div>
+        </div>
+
         <div className="flex flex-wrap items-center gap-2 pt-1 justify-between">
           <div className="flex items-center gap-2 rounded-full border border-indigo-200 bg-white px-2 py-1 shadow-sm">
             <span className="text-xs font-medium text-slate-600 pl-2">ขนาดอักษร:</span>

@@ -386,8 +386,8 @@ export default function PettyCashTable({ rows, lastUpdated }: Props) {
                 </td>
                 <td className="px-1.5 py-1.5 text-center border-l border-slate-200">{row.institute}</td>
                 <td className="px-1.5 py-1.5 text-center border-l border-slate-200">{row.note}</td>
-                <td className="px-1.5 py-1.5 text-center border-l border-slate-200">{row.advance.toFixed(2)}</td>
-                <td className="px-1.5 py-1.5 text-center border-l border-slate-200">{row.refund.toFixed(2)}</td>
+                <td className="px-1.5 py-1.5 text-center border-l border-slate-200">{row.advance.toLocaleString("th-TH", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                <td className="px-1.5 py-1.5 text-center border-l border-slate-200">{row.refund.toLocaleString("th-TH", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                 <td className="px-1.5 py-1.5 text-center border-l border-slate-200 text-[0.85em] leading-tight">{row.advNo}</td>
               </tr>
             );

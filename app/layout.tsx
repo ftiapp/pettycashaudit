@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Prompt } from "next/font/google";
-import NavLinks from "./NavLinks";
 import HeaderTitle from "./HeaderTitle";
 import "./globals.css";
 
@@ -39,7 +38,6 @@ export default function RootLayout({
                 </div>
                 <div className="header-logo-notch h-full w-12 bg-white sm:w-16" />
               </div>
-              <NavLinks />
             </div>
           </header>
 

@@ -29,7 +29,7 @@ async function fetchOutstandingRows(): Promise<OutstandingRow[]> {
     }
 
     const sheetRange =
-      process.env.GOOGLE_SHEET_PENDING_RANGE || "'รายการค้างชำระ'!A1:D1000";
+      process.env.GOOGLE_SHEET_PENDING_RANGE || "'รายการค้างชำระ'!A1:E1000";
 
     const privateKeyRows = process.env.GOOGLE_SHEETS_PRIVATE_KEY
       ? process.env.GOOGLE_SHEETS_PRIVATE_KEY.replace(/\\n/g, "\n")
@@ -51,27 +51,31 @@ async function fetchOutstandingRows(): Promise<OutstandingRow[]> {
     });
 
     const rows = res.data.values ?? [];
+    console.log("[Pending] Fetched rows count:", rows.length, "First row (header):", rows[0]);
     const dataRows = rows.slice(1);
 
     const parsed = dataRows
       .map((cols: unknown[], index: number) => {
         const c = (i: number) => (cols[i] ?? "").toString().trim();
         const num = (i: number) => {
-          const n = Number((cols[i] ?? "0").toString().replace(/,/g, ""));
+          const raw = (cols[i] ?? "0").toString().replace(/,/g, "");
+          const n = Number(raw);
           return Number.isFinite(n) ? n : 0;
         };
 
-        return {
+        const row = {
           id: index,
           detail: c(1),
           transferDate: c(2),
           docNo: c(3),
           amount: num(4),
         };
+        if (index < 3) console.log("[Pending] Row", index, "cols:", cols, "parsed:", row);
+        return row;
       })
       .filter((row) => row.detail !== "");
 
-    // เรียงจากอันที่เพิ่มล่าสุด (แถวล่างสุดในชีท) ไว้บนสุด
+    console.log("[Pending] Parsed count:", parsed.length);
     return parsed.reverse();
   } catch (error) {
     console.error("Failed to fetch outstanding rows", error);
@@ -85,32 +89,6 @@ export default async function OutstandingPage() {
   return (
     <div className="bg-white pt-4 pb-0 px-2 sm:px-4 lg:px-8">
       <div className="mx-auto w-full max-w-6xl lg:max-w-[1400px] xl:max-w-none space-y-6">
-        {/* แถบเตือนสีแดง */}
-        <div className="flex items-start gap-3 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-red-700">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            className="mt-0.5 h-5 w-5 shrink-0"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <circle cx="12" cy="12" r="10" />
-            <path d="M12 8v4" />
-            <path d="M12 16h.01" />
-          </svg>
-          <div className="text-sm leading-relaxed">
-            <p className="font-semibold">
-              สามารถตรวจสอบรายละเอียดเพิ่มเติมเกี่ยวกับเช็คสั่งจ่าย ได้ที่ฝ่ายบัญชีฯ คุณทิวิตถ์ฯ
-            </p>
-            <p className="text-red-600">
-              กำหนดการจ่ายเช็คทุกวันศุกร์ สัปดาห์ที่ 2 และ 4 ของเดือน เวลา 13.00 - 17.00 น.
-            </p>
-          </div>
-        </div>
-
         <PendingTable rows={rows} />
       </div>
     </div>
