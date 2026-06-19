@@ -23,8 +23,12 @@ export function middleware(request: NextRequest) {
   const isLocalhost =
     host.startsWith("localhost:") || host.startsWith("127.0.0.1:");
 
-  // อนุญาตเฉพาะเมื่อ referer มาจาก SharePoint ที่กำหนด (ยกเว้นเมื่อเปิดโหมด bypass สำหรับ dev หรือเข้าจาก localhost)
-  if (!isLocalhost && !BYPASS_REFERER && !referer.startsWith(ALLOWED_REFERER)) {
+  // ตรวจ referer ของเว็บเอง (internal navigation จาก Next.js Link หรือ reload)
+  const refererHost = referer ? new URL(referer).host : "";
+  const isInternal = refererHost === host;
+
+  // อนุญาตเฉพาะเมื่อ referer มาจาก SharePoint ที่กำหนด, หรือ navigation ภายในเว็บเอง (ยกเว้นเมื่อเปิดโหมด bypass สำหรับ dev หรือเข้าจาก localhost)
+  if (!isLocalhost && !BYPASS_REFERER && !isInternal && !referer.startsWith(ALLOWED_REFERER)) {
     const html = `<!DOCTYPE html>
 <html lang="th">
   <head>
