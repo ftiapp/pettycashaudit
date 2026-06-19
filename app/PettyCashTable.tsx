@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 type PettyCashRow = {
   id: number;
@@ -23,6 +23,77 @@ type Props = {
   rows: PettyCashRow[];
   lastUpdated?: string;
 };
+
+type SelectOption = {
+  value: string;
+  label: string;
+};
+
+function CustomSelect({
+  value,
+  onChange,
+  options,
+  placeholder = "เลือก...",
+}: {
+  value: string;
+  onChange: (value: string) => void;
+  options: SelectOption[];
+  placeholder?: string;
+}) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const selectedLabel = options.find((o) => o.value === value)?.label || placeholder;
+
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, []);
+
+  return (
+    <div className="relative" ref={ref}>
+      <button
+        type="button"
+        onClick={() => setOpen(!open)}
+        className="w-full rounded-md border border-slate-200 bg-white px-3 py-1.5 pr-9 text-left text-sm text-slate-700 shadow-sm outline-none transition focus:border-indigo-500 focus:ring-1 focus:ring-indigo-400"
+      >
+        <span className="block truncate">{selectedLabel}</span>
+        <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+          <svg
+            className={`h-4 w-4 text-slate-400 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
+        </span>
+      </button>
+      {open && (
+        <div className="absolute z-50 mt-1.5 max-h-60 w-full overflow-y-auto overflow-x-hidden rounded-xl bg-white py-1 shadow-xl shadow-slate-200/70">
+          {options.map((option) => (
+            <div
+              key={option.value}
+              onClick={() => {
+                onChange(option.value);
+                setOpen(false);
+              }}
+              className={`cursor-pointer px-3 py-1.5 text-sm transition-colors hover:bg-indigo-50 ${
+                option.value === value ? "bg-indigo-50 font-medium text-indigo-700" : "text-slate-700"
+              }`}
+            >
+              {option.label}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function PettyCashTable({ rows, lastUpdated }: Props) {
   const [fontSizePercent, setFontSizePercent] = useState(120);
@@ -179,25 +250,25 @@ export default function PettyCashTable({ rows, lastUpdated }: Props) {
           </div>
           <div className="flex flex-col gap-1">
             <label className="text-sm font-medium">เดือนที่เบิกจ่าย</label>
-            <select
-              className="rounded-md border border-slate-200 bg-white px-3 py-1.5 text-sm shadow-sm outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-400"
+            <CustomSelect
               value={monthFilter}
-              onChange={(e) => setMonthFilter(e.target.value)}
-            >
-              <option value="">ทั้งหมด</option>
-              <option value="มกราคม">มกราคม</option>
-              <option value="กุมภาพันธ์">กุมภาพันธ์</option>
-              <option value="มีนาคม">มีนาคม</option>
-              <option value="เมษายน">เมษายน</option>
-              <option value="พฤษภาคม">พฤษภาคม</option>
-              <option value="มิถุนายน">มิถุนายน</option>
-              <option value="กรกฎาคม">กรกฎาคม</option>
-              <option value="สิงหาคม">สิงหาคม</option>
-              <option value="กันยายน">กันยายน</option>
-              <option value="ตุลาคม">ตุลาคม</option>
-              <option value="พฤศจิกายน">พฤศจิกายน</option>
-              <option value="ธันวาคม">ธันวาคม</option>
-            </select>
+              onChange={setMonthFilter}
+              options={[
+                { value: "", label: "ทั้งหมด" },
+                { value: "มกราคม", label: "มกราคม" },
+                { value: "กุมภาพันธ์", label: "กุมภาพันธ์" },
+                { value: "มีนาคม", label: "มีนาคม" },
+                { value: "เมษายน", label: "เมษายน" },
+                { value: "พฤษภาคม", label: "พฤษภาคม" },
+                { value: "มิถุนายน", label: "มิถุนายน" },
+                { value: "กรกฎาคม", label: "กรกฎาคม" },
+                { value: "สิงหาคม", label: "สิงหาคม" },
+                { value: "กันยายน", label: "กันยายน" },
+                { value: "ตุลาคม", label: "ตุลาคม" },
+                { value: "พฤศจิกายน", label: "พฤศจิกายน" },
+                { value: "ธันวาคม", label: "ธันวาคม" },
+              ]}
+            />
           </div>
           <div className="flex flex-col gap-1">
             <label className="text-sm font-medium">ปีที่เบิกจ่าย</label>

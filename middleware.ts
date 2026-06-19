@@ -18,8 +18,13 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // อนุญาตเฉพาะเมื่อ referer มาจาก SharePoint ที่กำหนด (ยกเว้นเมื่อเปิดโหมด bypass สำหรับ dev)
-  if (!BYPASS_REFERER && !referer.startsWith(ALLOWED_REFERER)) {
+  // อนุญาต localhost สำหรับการพัฒนา
+  const host = request.headers.get("host") || "";
+  const isLocalhost =
+    host.startsWith("localhost:") || host.startsWith("127.0.0.1:");
+
+  // อนุญาตเฉพาะเมื่อ referer มาจาก SharePoint ที่กำหนด (ยกเว้นเมื่อเปิดโหมด bypass สำหรับ dev หรือเข้าจาก localhost)
+  if (!isLocalhost && !BYPASS_REFERER && !referer.startsWith(ALLOWED_REFERER)) {
     const html = `<!DOCTYPE html>
 <html lang="th">
   <head>
