@@ -76,7 +76,7 @@ async function fetchOutstandingRows(): Promise<OutstandingRow[]> {
       .filter((row) => row.detail !== "");
 
     console.log("[Pending] Parsed count:", parsed.length);
-    return parsed.reverse();
+    return parsed;
   } catch (error) {
     console.error("Failed to fetch outstanding rows", error);
     return [];
