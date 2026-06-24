@@ -62,12 +62,14 @@ async function fetchOutstandingRows(): Promise<OutstandingRow[]> {
           const n = Number(raw);
           return Number.isFinite(n) ? n : 0;
         };
+        const cleanDocNo = (i: number) =>
+          c(i).replace(/,/g, "").replace(/\.00$/, "");
 
         const row = {
           id: index,
           detail: c(0),
           transferDate: c(1),
-          docNo: c(2),
+          docNo: cleanDocNo(2),
           amount: num(3),
         };
         if (index < 3) console.log("[Pending] Row", index, "cols:", cols, "parsed:", row);
