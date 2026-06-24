@@ -29,7 +29,7 @@ async function fetchOutstandingRows(): Promise<OutstandingRow[]> {
     }
 
     const sheetRange =
-      process.env.GOOGLE_SHEET_PENDING_RANGE || "'รายการค้างชำระ'!A1:E1000";
+      process.env.GOOGLE_SHEET_PENDING_RANGE || "'รายการค้างชำระ'!A1:D1000";
 
     const privateKeyRows = process.env.GOOGLE_SHEETS_PRIVATE_KEY
       ? process.env.GOOGLE_SHEETS_PRIVATE_KEY.replace(/\\n/g, "\n")
@@ -65,10 +65,10 @@ async function fetchOutstandingRows(): Promise<OutstandingRow[]> {
 
         const row = {
           id: index,
-          detail: c(1),
-          transferDate: c(2),
-          docNo: c(3),
-          amount: num(4),
+          detail: c(0),
+          transferDate: c(1),
+          docNo: c(2),
+          amount: num(3),
         };
         if (index < 3) console.log("[Pending] Row", index, "cols:", cols, "parsed:", row);
         return row;
