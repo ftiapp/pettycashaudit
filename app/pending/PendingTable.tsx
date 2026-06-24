@@ -191,11 +191,11 @@ export default function PendingTable({ rows }: Props) {
           <table className="w-full text-left text-xs border border-slate-200 rounded-lg">
             <thead className="sticky top-0 z-10 bg-indigo-800 font-medium text-slate-50">
               <tr>
-                <th className="px-1.5 py-1.5 text-left border-l border-slate-200 min-w-[200px]">รายละเอียดเช็ค</th>
+                <th className="px-1.5 py-1.5 text-center border-l border-slate-200 min-w-[200px]">รายละเอียดเช็ค</th>
                 <th className="px-1.5 py-1.5 text-center border-l border-slate-200 min-w-[100px]">วันที่เช็ค</th>
                 <th className="px-1.5 py-1.5 text-center border-l border-slate-200 min-w-[100px]">เลขที่เช็ค</th>
-                <th className="px-1.5 py-1.5 text-right whitespace-nowrap border-l border-slate-200 min-w-[120px]">จำนวนเงินรวมทั้งสิ้น</th>
-                <th className="px-1.5 py-1.5 text-left border-l border-slate-200 min-w-[120px]">หมายเหตุ</th>
+                <th className="px-1.5 py-1.5 text-center whitespace-nowrap border-l border-slate-200 min-w-[120px]">จำนวนเงินรวมทั้งสิ้น</th>
+                <th className="px-1.5 py-1.5 text-center border-l border-slate-200 min-w-[120px]">หมายเหตุ</th>
               </tr>
             </thead>
             <tbody
