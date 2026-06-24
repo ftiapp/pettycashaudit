@@ -12,6 +12,7 @@ export default function PendingTable({ rows }: Props) {
   const [detailFilter, setDetailFilter] = useState("");
   const [dateFilter, setDateFilter] = useState("");
   const [docNoFilter, setDocNoFilter] = useState("");
+  const [noteFilter, setNoteFilter] = useState("");
   const [selectedRowId, setSelectedRowId] = useState<number | null>(null);
 
   const textMatch = (value: string, keyword: string) => {
@@ -24,9 +25,10 @@ export default function PendingTable({ rows }: Props) {
       const detailMatch = textMatch(row.detail, detailFilter);
       const dateMatch = textMatch(row.transferDate, dateFilter);
       const docNoMatch = textMatch(row.docNo, docNoFilter);
-      return detailMatch && dateMatch && docNoMatch;
+      const noteMatch = textMatch(row.note, noteFilter);
+      return detailMatch && dateMatch && docNoMatch && noteMatch;
     });
-  }, [rows, detailFilter, dateFilter, docNoFilter]);
+  }, [rows, detailFilter, dateFilter, docNoFilter, noteFilter]);
 
   const totalAmount = filteredRows.reduce((sum, row) => sum + row.amount, 0);
 
@@ -34,6 +36,7 @@ export default function PendingTable({ rows }: Props) {
     setDetailFilter("");
     setDateFilter("");
     setDocNoFilter("");
+    setNoteFilter("");
   };
 
   return (
@@ -65,7 +68,7 @@ export default function PendingTable({ rows }: Props) {
 
       {/* ฟิลเตอร์ค้นหา */}
       <div className="mb-3 space-y-2.5 rounded-lg border border-indigo-100 bg-slate-50 p-2.5 text-sm text-slate-700">
-        <div className="grid gap-2 md:grid-cols-3">
+        <div className="grid gap-2 md:grid-cols-4">
           <div className="flex flex-col gap-1">
             <label className="text-sm font-medium">รายละเอียดเช็ค</label>
             <input
@@ -94,6 +97,16 @@ export default function PendingTable({ rows }: Props) {
               className="rounded-md border border-slate-200 bg-white px-3 py-1.5 text-sm shadow-sm outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-400"
               value={docNoFilter}
               onChange={(e) => setDocNoFilter(e.target.value)}
+            />
+          </div>
+          <div className="flex flex-col gap-1">
+            <label className="text-sm font-medium">หมายเหตุ</label>
+            <input
+              type="text"
+              placeholder="พิมพ์หมายเหตุ"
+              className="rounded-md border border-slate-200 bg-white px-3 py-1.5 text-sm shadow-sm outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-400"
+              value={noteFilter}
+              onChange={(e) => setNoteFilter(e.target.value)}
             />
           </div>
         </div>
@@ -182,6 +195,7 @@ export default function PendingTable({ rows }: Props) {
                 <th className="px-1.5 py-1.5 text-center border-l border-slate-200 min-w-[100px]">วันที่เช็ค</th>
                 <th className="px-1.5 py-1.5 text-center border-l border-slate-200 min-w-[100px]">เลขที่เช็ค</th>
                 <th className="px-1.5 py-1.5 text-right whitespace-nowrap border-l border-slate-200 min-w-[120px]">จำนวนเงินรวมทั้งสิ้น</th>
+                <th className="px-1.5 py-1.5 text-left border-l border-slate-200 min-w-[120px]">หมายเหตุ</th>
               </tr>
             </thead>
             <tbody
@@ -191,7 +205,7 @@ export default function PendingTable({ rows }: Props) {
               {filteredRows.length === 0 ? (
                 <tr>
                   <td
-                    colSpan={4}
+                    colSpan={5}
                     className="px-3 py-8 text-center text-slate-500 border-l border-slate-200"
                   >
                     ไม่มีรายการค้างชำระ
@@ -215,6 +229,7 @@ export default function PendingTable({ rows }: Props) {
                       <td className="px-1.5 py-1.5 text-right whitespace-nowrap border-l border-slate-200 font-semibold text-slate-900">
                         {row.amount.toLocaleString("th-TH", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </td>
+                      <td className="px-1.5 py-1.5 text-left border-l border-slate-200">{row.note}</td>
                     </tr>
                   );
                 })
