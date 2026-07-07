@@ -1,32 +1,100 @@
 @import "tailwindcss";
 
+/* ============================================================
+   FTI Design System — token layer (Tailwind v4)
+   Source of truth: DESIGN.md (YAML frontmatter) / DESIGN.html.
+   Colors + font live in @theme so they BOTH generate utilities
+   (bg-primary-800, text-primary, …) AND emit :root CSS variables
+   consumed via var(--color-*) in arbitrary values.
+   Thai/mixed runs use Noto Sans Thai; English-only uses Inter.
+   No dark mode: this is a light-only system (DESIGN.md rule #9).
+   ============================================================ */
+
+@theme {
+  --font-sans: var(--font-th), "Inter", system-ui, sans-serif;
+
+  /* Brand + primary scale */
+  --color-primary-900: #001a45;
+  --color-primary-800: #00245f;
+  --color-primary-700: #002e79;
+  --color-primary-600: #003791;
+  --color-primary-500: #0056b8;
+  --color-primary-400: #2b76d2;
+  --color-primary-300: #6fa1e5;
+  --color-primary-200: #a9c7f2;
+  --color-primary-100: #d6e5fa;
+  --color-primary-50: #eff5fc;
+  --color-primary: #003791; /* Official FTI Blue */
+  --color-brand-red: #f50000; /* accent only — never CTA, never error */
+
+  /* Roles */
+  --color-surface: #ffffff;
+  --color-surface-subtle: #f9fafb;
+  --color-surface-brand-subtle: #eff5fc;
+  --color-on-surface: #111827;
+  --color-on-surface-muted: #4b5563;
+  --color-border: #d1d5db;
+  --color-border-subtle: #e5e7eb;
+  --color-focus: #2b76d2;
+
+  /* Semantic */
+  --color-info: #0066cc;
+  --color-info-subtle: #eaf3ff;
+  --color-success: #2e9e5b;
+  --color-success-strong: #166534;
+  --color-success-subtle: #eaf7ef;
+  --color-warning: #f4a300;
+  --color-warning-strong: #92400e;
+  --color-warning-subtle: #fff7e0;
+  --color-error: #d92d20;
+  --color-error-strong: #b42318;
+  --color-error-subtle: #feeceb;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  /* Radius (controls 12px, cards 16px) */
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-prompt);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Elevation */
+  --shadow-1: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-2: 0 12px 32px rgba(0, 0, 0, 0.12);
+  --shadow-3: 0 24px 64px rgba(0, 24, 69, 0.18);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-prompt), system-ui, -apple-system, BlinkMacSystemFont,
+  background: var(--color-surface);
+  color: var(--color-on-surface);
+  font-family: var(--font-th), "Inter", system-ui, -apple-system,
     "Segoe UI", sans-serif;
+  line-height: 1.65;
+}
+
+/* English-only runs use Inter (DESIGN.md mixed-language rule) */
+[lang="en"],
+.en {
+  font-family: var(--font-en), "Inter", system-ui, sans-serif;
+  line-height: 1.5;
+}
+
+/* Visible 2px focus ring on every interactive element (DESIGN.md rule #10) */
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
 }
 
 /* มุมเฉียงของพื้นโลโก้ใน Header */
 .header-logo-notch {
   clip-path: polygon(0 0, 80% 0, 0 100%);
   margin-left: -2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
 }

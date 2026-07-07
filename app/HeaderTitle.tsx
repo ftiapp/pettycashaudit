@@ -25,7 +25,7 @@ export default function HeaderTitle() {
           <rect x="9.4" y="11.6" width="3.4" height="2" rx="1" className="fill-amber-200" />
         </svg>
       </span>
-      <span className="hidden text-[11px] text-red-600 sm:inline">
+      <span className="hidden text-[11px] font-medium text-[color:var(--color-brand-red)] sm:inline">
         {isPending
           ? "รายละเอียดรายการค้างชำระ-สภาอุตสาหกรรม"
           : "รายละเอียดการโอนเงินสดย่อยประจำวัน-สภาอุตสาหกรรม"}

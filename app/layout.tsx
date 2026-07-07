@@ -1,12 +1,21 @@
 import type { Metadata } from "next";
-import { Prompt } from "next/font/google";
+import { Noto_Sans_Thai, Inter } from "next/font/google";
 import HeaderTitle from "./HeaderTitle";
 import "./globals.css";
 
-const prompt = Prompt({
-  variable: "--font-prompt",
-  weight: ["300", "400", "500", "600", "700"],
-  subsets: ["latin", "thai"],
+// FTI Design System: Noto Sans Thai for Thai/mixed runs, Inter for English-only.
+const notoSansThai = Noto_Sans_Thai({
+  variable: "--font-th",
+  weight: ["400", "500", "600", "700"],
+  subsets: ["thai", "latin"],
+  display: "swap",
+});
+
+const inter = Inter({
+  variable: "--font-en",
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -20,13 +29,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${prompt.variable} antialiased`}>
-        <div className="flex min-h-screen flex-col bg-white text-slate-900">
-          <header className="bg-indigo-800 text-white shadow">
+    <html lang="th">
+      <body className={`${notoSansThai.variable} ${inter.variable} antialiased`}>
+        <div className="flex min-h-screen flex-col bg-white text-[color:var(--color-on-surface)]">
+          <header className="bg-[color:var(--color-primary-800)] text-white shadow-[var(--shadow-1)]">
             <div className="flex h-14 w-full items-stretch">
               <div className="flex items-stretch">
-                <div className="flex items-center bg-white pl-3 pr-8 text-indigo-800 sm:pl-6 sm:pr-10">
+                <div className="flex items-center bg-white pl-3 pr-8 text-[color:var(--color-primary)] sm:pl-6 sm:pr-10">
                   <div className="flex items-center gap-2">
                     <img
                       src="/fti-logo.png"
@@ -43,7 +52,7 @@ export default function RootLayout({
 
           <main>{children}</main>
 
-          <footer className="mt-0 border-t border-slate-200 bg-white py-4 text-[11px] text-indigo-900">
+          <footer className="mt-0 border-t border-[color:var(--color-border-subtle)] bg-white py-4 text-[11px] text-[color:var(--color-primary-900)]">
             <div className="mx-auto flex w-full max-w-5xl items-center px-4">
               <div className="flex items-center">
                 <img

@@ -38,8 +38,8 @@ export default function NavLinks() {
             href={link.href}
             className={`rounded-lg px-4 py-1.5 text-sm font-semibold shadow transition active:scale-95 ${
               pathname === link.href
-                ? "bg-white text-indigo-800 hover:bg-indigo-50"
-                : "bg-white/10 text-white hover:bg-white hover:text-indigo-800"
+                ? "bg-white text-primary-800 hover:bg-primary-50"
+                : "bg-white/10 text-white hover:bg-white hover:text-primary-800"
             }`}
           >
             {link.label}
@@ -51,7 +51,7 @@ export default function NavLinks() {
       <div className="sm:hidden relative ml-auto flex items-center pr-3" ref={menuRef}>
         <button
           onClick={() => setOpen(!open)}
-          className="flex items-center justify-center rounded-lg bg-white/10 p-2 text-white hover:bg-white hover:text-indigo-800 transition"
+          className="flex items-center justify-center rounded-lg bg-white/10 p-2 text-white hover:bg-white hover:text-primary-800 transition"
           aria-label="เมนู"
         >
           <svg
@@ -89,8 +89,8 @@ export default function NavLinks() {
                   href={link.href}
                   className={`block px-4 py-3 text-sm font-semibold transition ${
                     isActive
-                      ? "bg-indigo-50 text-indigo-700"
-                      : "text-slate-700 hover:bg-slate-50 hover:text-indigo-700"
+                      ? "bg-primary-50 text-primary-700"
+                      : "text-slate-700 hover:bg-slate-50 hover:text-primary-700"
                   }`}
                 >
                   {link.label}

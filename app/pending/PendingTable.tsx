@@ -42,8 +42,8 @@ export default function PendingTable({ rows }: Props) {
   return (
     <section className="rounded-lg border border-slate-200 bg-white p-3 shadow-sm">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-        <h2 className="inline-flex items-center gap-2 border-l-4 border-red-500 pl-3 text-base font-semibold text-indigo-800 sm:text-lg">
-          <span className="text-red-600">
+        <h2 className="inline-flex items-center gap-2 border-l-4 border-[color:var(--color-brand-red)] pl-3 text-base font-semibold text-primary-900 sm:text-lg">
+          <span className="text-[color:var(--color-warning-strong)]">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -61,20 +61,21 @@ export default function PendingTable({ rows }: Props) {
           </span>
           <span>รายการค้างชำระ</span>
         </h2>
-        <div className="rounded-full bg-red-50 px-4 py-1.5 text-sm font-semibold text-red-700 border border-red-200">
+        <div className="inline-flex items-center gap-2 rounded-full border border-[color:var(--color-warning)] bg-[color:var(--color-warning-subtle)] px-4 py-1.5 text-sm font-semibold text-[color:var(--color-warning-strong)]">
+          <span className="h-1.5 w-1.5 rounded-full bg-current" aria-hidden="true" />
           ค้างชำระรวม: {totalAmount.toLocaleString("th-TH")} บาท
         </div>
       </div>
 
       {/* ฟิลเตอร์ค้นหา */}
-      <div className="mb-3 space-y-2.5 rounded-lg border border-indigo-100 bg-slate-50 p-2.5 text-sm text-slate-700">
+      <div className="mb-3 space-y-2.5 rounded-lg border border-primary-100 bg-slate-50 p-2.5 text-sm text-slate-700">
         <div className="grid gap-2 md:grid-cols-4">
           <div className="flex flex-col gap-1">
             <label className="text-sm font-medium">รายละเอียดเช็ค</label>
             <input
               type="text"
               placeholder="พิมพ์รายละเอียดเช็ค"
-              className="rounded-md border border-slate-200 bg-white px-3 py-1.5 text-sm shadow-sm outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-400"
+              className="rounded-md border border-slate-200 bg-white px-3 py-1.5 text-sm shadow-sm outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-400"
               value={detailFilter}
               onChange={(e) => setDetailFilter(e.target.value)}
             />
@@ -84,7 +85,7 @@ export default function PendingTable({ rows }: Props) {
             <input
               type="text"
               placeholder="เช่น 16 มิ.ย.2569"
-              className="rounded-md border border-slate-200 bg-white px-3 py-1.5 text-sm shadow-sm outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-400"
+              className="rounded-md border border-slate-200 bg-white px-3 py-1.5 text-sm shadow-sm outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-400"
               value={dateFilter}
               onChange={(e) => setDateFilter(e.target.value)}
             />
@@ -94,7 +95,7 @@ export default function PendingTable({ rows }: Props) {
             <input
               type="text"
               placeholder="เช่น 100...."
-              className="rounded-md border border-slate-200 bg-white px-3 py-1.5 text-sm shadow-sm outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-400"
+              className="rounded-md border border-slate-200 bg-white px-3 py-1.5 text-sm shadow-sm outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-400"
               value={docNoFilter}
               onChange={(e) => setDocNoFilter(e.target.value)}
             />
@@ -104,7 +105,7 @@ export default function PendingTable({ rows }: Props) {
             <input
               type="text"
               placeholder="พิมพ์หมายเหตุ"
-              className="rounded-md border border-slate-200 bg-white px-3 py-1.5 text-sm shadow-sm outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-400"
+              className="rounded-md border border-slate-200 bg-white px-3 py-1.5 text-sm shadow-sm outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-400"
               value={noteFilter}
               onChange={(e) => setNoteFilter(e.target.value)}
             />
@@ -112,11 +113,11 @@ export default function PendingTable({ rows }: Props) {
         </div>
 
         {/* แถบเตือนสีแดง */}
-        <div className="flex items-start gap-4 rounded-xl border-2 border-red-200 bg-red-50 px-6 py-5 text-red-700">
+        <div className="flex items-start gap-4 rounded-md border border-[color:var(--color-border-subtle)] border-l-4 border-l-[color:var(--color-error)] bg-[color:var(--color-error-subtle)] px-6 py-5">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
-            className="mt-0.5 h-7 w-7 shrink-0"
+            className="mt-0.5 h-7 w-7 shrink-0 text-[color:var(--color-error)]"
             fill="none"
             stroke="currentColor"
             strokeWidth="2"
@@ -128,17 +129,17 @@ export default function PendingTable({ rows }: Props) {
             <path d="M12 16h.01" />
           </svg>
           <div className="text-base leading-relaxed">
-            <p className="font-bold text-lg">
+            <p className="text-lg font-bold text-[color:var(--color-error-strong)]">
               สามารถตรวจสอบรายละเอียดเพิ่มเติมเกี่ยวกับเช็คสั่งจ่าย ได้ที่ฝ่ายบัญชีฯ คุณทิวิตถ์ฯ
             </p>
-            <p className="text-red-600 mt-1">
+            <p className="mt-1 text-[color:var(--color-error)]">
               กำหนดการจ่ายเช็คทุกวันศุกร์ สัปดาห์ที่ 2 และ 4 ของเดือน เวลา 13.00 - 17.00 น.
             </p>
           </div>
         </div>
 
         <div className="flex flex-wrap items-center gap-2 pt-1 justify-between">
-          <div className="flex items-center gap-2 rounded-full border border-indigo-200 bg-white px-2 py-1 shadow-sm">
+          <div className="flex items-center gap-2 rounded-full border border-primary-200 bg-white px-2 py-1 shadow-sm">
             <span className="text-xs font-medium text-slate-600 pl-2">ขนาดอักษร:</span>
             <button
               onClick={() => setFontSizePercent(Math.max(80, fontSizePercent - 10))}
@@ -147,7 +148,7 @@ export default function PendingTable({ rows }: Props) {
             >
               <span className="text-sm font-bold">-</span>
             </button>
-            <span className="w-10 text-center text-xs font-semibold text-indigo-700">
+            <span className="w-10 text-center text-xs font-semibold text-primary-700">
               {fontSizePercent}%
             </span>
             <button
@@ -160,27 +161,25 @@ export default function PendingTable({ rows }: Props) {
           </div>
           <button
             type="button"
-            className="inline-flex items-center justify-center gap-1.5 rounded-full border border-red-300 bg-red-50 px-4 py-1 text-sm font-semibold text-red-700 shadow-sm hover:bg-red-500 hover:text-white hover:border-red-600 hover:shadow-md transition-colors"
+            className="inline-flex items-center justify-center gap-1.5 rounded-md border border-[color:var(--color-border)] bg-white px-4 py-1.5 text-sm font-medium text-[color:var(--color-on-surface-muted)] transition-colors hover:bg-[color:var(--color-surface-subtle)] hover:text-[color:var(--color-primary)]"
             onClick={handleClearFilters}
           >
-            <span className="flex h-4 w-4 items-center justify-center rounded-full bg-white">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                className="h-3 w-3"
-                fill="none"
-                stroke="#ef4444"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M3 6h18" />
-                <path d="M9 6V4a1.5 1.5 0 0 1 1.5-1.5h3A1.5 1.5 0 0 1 15 4v2" />
-                <rect x="6" y="6" width="12" height="13" rx="2" />
-                <path d="M10 10v6" />
-                <path d="M14 10v6" />
-              </svg>
-            </span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              className="h-4 w-4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M3 6h18" />
+              <path d="M9 6V4a1.5 1.5 0 0 1 1.5-1.5h3A1.5 1.5 0 0 1 15 4v2" />
+              <rect x="6" y="6" width="12" height="13" rx="2" />
+              <path d="M10 10v6" />
+              <path d="M14 10v6" />
+            </svg>
             <span>ล้างตัวกรอง</span>
           </button>
         </div>
@@ -189,7 +188,7 @@ export default function PendingTable({ rows }: Props) {
       <div className="overflow-x-auto">
         <div className="max-h-[480px] lg:max-h-[70vh] overflow-y-auto">
           <table className="w-full text-left text-xs border border-slate-200 rounded-lg">
-            <thead className="sticky top-0 z-10 bg-indigo-800 font-medium text-slate-50">
+            <thead className="sticky top-0 z-10 bg-primary-800 font-medium text-slate-50">
               <tr>
                 <th className="px-1.5 py-1.5 text-center border-l border-slate-200 min-w-[200px]">รายละเอียดเช็ค</th>
                 <th className="px-1.5 py-1.5 text-center border-l border-slate-200 min-w-[100px]">วันที่เช็ค</th>
@@ -214,14 +213,14 @@ export default function PendingTable({ rows }: Props) {
               ) : (
                 filteredRows.map((row, idx) => {
                   const isSelected = row.id === selectedRowId;
-                  const baseColor = idx % 2 === 0 ? "bg-white" : "bg-indigo-50";
+                  const baseColor = idx % 2 === 0 ? "bg-white" : "bg-[color:var(--color-surface-subtle)]";
                   return (
                     <tr
                       key={row.id}
                       onClick={() => setSelectedRowId(row.id)}
                       className={`${
-                        isSelected ? "bg-amber-100" : baseColor
-                      } hover:bg-amber-50 cursor-pointer transition-colors`}
+                        isSelected ? "bg-primary-100" : baseColor
+                      } hover:bg-primary-50 cursor-pointer transition-colors`}
                     >
                       <td className="px-1.5 py-1.5 border-l border-slate-200">{row.detail}</td>
                       <td className="px-1.5 py-1.5 text-center border-l border-slate-200">{row.transferDate}</td>
