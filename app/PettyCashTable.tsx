@@ -102,7 +102,8 @@ export default function PettyCashTable({ rows, lastUpdated }: Props) {
   const [detailFilter, setDetailFilter] = useState("");
   const [groupFilter, setGroupFilter] = useState("");
   const [monthFilter, setMonthFilter] = useState("");
-  const [yearFilter, setYearFilter] = useState("");
+  const currentBuddhistYear = String(new Date().getFullYear() + 543);
+  const [yearFilter, setYearFilter] = useState(currentBuddhistYear);
   const [dateFilter, setDateFilter] = useState("");
   const [selectedRowId, setSelectedRowId] = useState<number | null>(null);
   const [page, setPage] = useState(1);
@@ -279,6 +280,9 @@ export default function PettyCashTable({ rows, lastUpdated }: Props) {
               value={yearFilter}
               onChange={(e) => setYearFilter(e.target.value)}
             />
+            <span className="text-xs text-slate-500">
+              ค่าเริ่มต้นคือปีปัจจุบัน แก้ไขปีเพื่อดูข้อมูลย้อนหลัง
+            </span>
           </div>
         </div>
 
